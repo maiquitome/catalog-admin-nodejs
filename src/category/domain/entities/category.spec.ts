@@ -1,5 +1,6 @@
-import { Category } from "./category";
+import { Category, CategoryProperties } from "./category";
 import { omit } from "lodash";
+import { validate as uuidValidate } from 'uuid';
 
 describe("Category Unit Tests", () => {
   test("category constructor", () => {
@@ -60,6 +61,23 @@ describe("Category Unit Tests", () => {
     })
   })
 
+  test("id field", () => {
+    type CategoryData = { props: CategoryProperties, id?: string };
+
+    const data: CategoryData[] = [
+      { props: { name: "Movie" } },
+      { props: { name: "Movie" }, id: null },
+      { props: { name: "Movie" }, id: undefined },
+      { props: { name: "Movie" }, id: "c933df34-509e-471d-a606-b869e2a58294"}
+    ];
+
+    data.forEach(i => {
+      const category = new Category(i.props, i.id);
+      expect(category.id).not.toBeNull();
+      expect(uuidValidate(category.id)).toBeTruthy();
+    });
+  })
+
   test("getter and setter of name property", () => {
     const category = new Category({ name: "Movie" });
     expect(category.name).toBe("Movie");
@@ -88,13 +106,13 @@ describe("Category Unit Tests", () => {
   test("getter and setter of is_active property", () => {
     let category = new Category({ name: "Movie" });
     expect(category.is_active).toBeTruthy();
-    
+
     category = new Category({ name: "Movie", is_active: true });
     expect(category.is_active).toBeTruthy();
-    
+
     category = new Category({ name: "Movie", is_active: false });
     expect(category.is_active).toBeFalsy();
-    
+
     category["is_active"] = true;
     expect(category.is_active).toBeTruthy();
 
@@ -103,15 +121,15 @@ describe("Category Unit Tests", () => {
 
     category["is_active"] = undefined;
     expect(category.is_active).toBeTruthy();
-    
+
     category["is_active"] = null;
     expect(category.is_active).toBeTruthy();
   })
-  
+
   test("getter of created_at property", () => {
     let category = new Category({ name: "Movie" });
     expect(category.created_at).toBeInstanceOf(Date);
-    
+
     const created_at = new Date();
     category = new Category({
       name: "Movie",
