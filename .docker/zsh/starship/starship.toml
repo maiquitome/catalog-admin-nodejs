@@ -1,0 +1,8 @@
+format = "$all"
+
+[package]
+disabled = true
+
+[nodejs]
+format = "via [NodeJS $version]($style)"
+style = "green bold"

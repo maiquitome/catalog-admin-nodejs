@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  app:
+    volumes:
+      - ./.docker/zsh/starship/starship.toml:/home/node/.config/starship.toml:delegated
+      - ./.docker/zsh/history:/home/node/zsh:delegated
