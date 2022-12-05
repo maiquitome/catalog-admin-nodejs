@@ -30,7 +30,8 @@
 			"extensions": [
 				"vivaxy.vscode-conventional-commits",
 				"dbaeumer.vscode-eslint",
-				"SonarSource.sonarlint-vscode"
+				"SonarSource.sonarlint-vscode",
+				"kavod-io.vscode-jest-test-adapter"
 			]
 		}
 	}
